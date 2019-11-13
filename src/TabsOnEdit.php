@@ -1,6 +1,7 @@
 <?php
 namespace Eminiarts\Tabs;
 
+use Laravel\Nova\Fields\FieldCollection;
 use Laravel\Nova\Panel;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -123,13 +124,12 @@ trait TabsOnEdit
      * @param  \Illuminate\Support\Collection   $panels
      * @return \Illuminate\Support\Collection
      */
-    protected function assignToPanels($label, Collection $panels)
+    protected function assignToPanels($label, FieldCollection $fields)
     {
-        return $panels->map(function ($field) use ($label) {
+        return $fields->map(function ($field) use ($label) {
             if ( !is_array($field) && !$field->panel ) {
-                 $field->panel = $label;
+                $field->panel = $label;
             }
-
             return $field;
         });
     }
